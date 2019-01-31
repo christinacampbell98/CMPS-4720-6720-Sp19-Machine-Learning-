@@ -1,0 +1,40 @@
+import pandas as pd
+from sklearn import datasets, linear_model
+from sklearn.model_selection import train_test_split
+from matplotlib import pyplot as plt
+from sklearn.metrics import accuracy_score
+import xgboost as xgb
+
+dataset = 'iris.csv'
+data = pd.read_csv(dataset)
+
+y= (data.iloc[:,4])
+X = data.drop(columns =['Iris-setosa'], axis =1)
+
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.3, train_size=0.7)
+print("\nX_train:\n")
+print(X_train)
+
+
+print("\nX_test:\n")
+print(X_test)
+
+
+
+print("\ny_train:\n")
+print(y_train)
+
+
+print("\ny_test:\n")
+print(y_test)
+
+
+xgb_clf = xgb.XGBClassifier()
+xgb_clf = xgb_clf.fit(X_train, y_train)
+
+print('The accuracy of the XGBoost classifier on training data is {:.2f}'.format(xgb_clf.score(X_train, y_train)))
+print('The accuracy of the XGBoost classifier on test data is {:.2f}'.format(xgb_clf.score(X_test, y_test)))
+
+
